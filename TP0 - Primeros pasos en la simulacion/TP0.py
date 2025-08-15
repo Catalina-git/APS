@@ -25,7 +25,7 @@ def mi_funcion_sen(amplitud = 1, offset = 0, frecuencia = 1, fase = 0, N = 1000,
 N = 1000 
 amplitud = 2
 offset = 1
-frecuencia = N
+frecuencia = 5
 fase = np.pi/4
 frecADC = 1000
 
@@ -45,7 +45,7 @@ plt.figure(figsize=(10, 6))  # Tamaño de la figura (ancho, alto)
 
 # Señal 500 Hz, es Nyquist
 plt.subplot(2, 2, 1)
-tt, xx = mi_funcion_sen(2, 0, 500, np.pi/4, 1000, 1000)
+tt, xx = mi_funcion_sen(1, 0, 500, 0, 1000, 50000)
 plt.plot(tt, xx, '-', color='blue')
 plt.title("Señal Senoidal con 500 Hz")
 plt.xlabel("Tiempo [s]")
@@ -54,7 +54,7 @@ plt.grid(True)
 
 # Señal 999 Hz
 plt.subplot(2, 2, 2)
-tt, xx = mi_funcion_sen(2, 0, 999, np.pi/4, 1000, 1000)
+tt, xx = mi_funcion_sen(1, 0, 999, 0, 1000, 1000)
 plt.plot(tt, xx, '-', color='green')
 plt.title("Señal Senoidal con 999 Hz")
 plt.xlabel("Tiempo [s]")
@@ -63,7 +63,7 @@ plt.grid(True)
 
 # Señal 1001 Hz
 plt.subplot(2, 2, 3)
-tt, xx = mi_funcion_sen(2, 0, 1001, np.pi/4, 1000, 1000)
+tt, xx = mi_funcion_sen(1, 0, 1001, 0, 1000, 1000)
 plt.plot(tt, xx, '-', color='orange')
 plt.title("Señal Senoidal con 1001 Hz")
 plt.xlabel("Tiempo [s]")
@@ -72,7 +72,7 @@ plt.grid(True)
 
 # Señal 2001 Hz
 plt.subplot(2, 2, 4)
-tt, xx = mi_funcion_sen(2, 0, 2001, np.pi/4, 1000, 1000)
+tt, xx = mi_funcion_sen(1, 0, 2001, 0, 1000, 1000)
 plt.plot(tt, xx, '-', color='grey')
 plt.title("Señal Senoidal con 2001 Hz")
 plt.xlabel("Tiempo [s]")
@@ -84,8 +84,41 @@ plt.show()
 
 # Grafico una señal cuadrada
 
-from scipy.signal import sweep_poly
+from scipy import signal
 
+def mi_funcion_cuadrada (frecuencia, frecADC, N, offset, fase):
+    Ts = 1/frecADC # Es el tiempo en el cual se toma cada muestra
+
+    ttc = np.arange(start = 0, stop= N*Ts, step = Ts)
+
+    xxc = signal.square(2 * np.pi * frecuencia * ttc + fase) + offset
+
+    return ttc, xxc
+    
+# Defino mis variables
+N = 100
+offset = 0
+frecuencia = 4
+fase = 0
+frecADC = 100
+
+# Llamo a mi funcion
+ttc, xxc = mi_funcion_cuadrada(frecuencia, frecADC, N, offset, fase)
+
+# Graficamos la señal cuadrada generada
+plt.figure(figsize=(10, 4))
+plt.plot(ttc, xxc, label='Señal Cuadrada Aproximada')
+plt.title('Generación de Señal Cuadrada')
+plt.xlabel('Tiempo [s]')
+plt.ylabel('Amplitud')
+plt.grid(True)
+plt.legend()
+plt.show()
+
+"""
+OTRA MANERA DE GRAFICAR UNA SEÑAL CUADRADA USANDO scipy
+
+from scipy.signal import sweet_poly
 # Parámetros de la señal
 amplitud = 1 # Volts
 offset = 0 
@@ -114,6 +147,8 @@ plt.ylabel('Amplitud')
 plt.grid(True)
 plt.legend()
 plt.show()
+
+"""
 
 
 
