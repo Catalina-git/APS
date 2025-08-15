@@ -4,15 +4,18 @@
     - Misma señal amplificada y desfazada en pi/2
     - Señal anterior modulada en amplitud por otra señal sinusoidal de la mitad de frecuencia
     - Señal anterior recortada al 75% de su potencia
+    --> las funciones con las que trabajamos no son periodicas (vemos N-muestras) --> vamos a calcular energias --> tomamos potencia como energia
     - Una señal cuadrada de 4KHz
     - Un pulso rectangular de 10ms
     - En cada caso indique tiempo entre muestras, numero de mustras y potencia
     
-2) Verificar ortogonalidad entre la primera señal y las demas
+2) Verificar ortogonalidad entre la primera señal y las demas --> multiplicar matricialmente, filas por columnas, y tiene que dar cero
 
-3) Graficar la autocorrelacion de la primera señal y la correlacion entre esta y las demas
+3) Graficar la autocorrelacion de la primera señal y la correlacion entre esta y las demas. 
+    Autocorrelacion --> similitud lineal, similitud consigomismo
+    scipy tiene una funcion que te hace la correlacion
     
-4) Dada la siguiente propiedad geometricaÑ
+4) Dada la siguiente propiedad geometrica
     2 * sin(alfa) * sin (beta) = cos(alfa - beta) - cos(alfa + beta)
     - Demostrar la igualdad
     - Mostrar que la igualdad se cumple con señales sinosoidales, considerando alfa = w * t, el doble de beta (use la frecuencia que desee).
@@ -47,6 +50,7 @@ def mi_funcion_sen(amplitud = 1, offset = 0, frecuencia = 1, fase = 0, N = 1000,
     xx = amplitud * np.sin(2 * np.pi * frecuencia * tt + fase) + offset
 
     return tt, xx
+
 
 # Llamo a mi funcion
 tt, xx = mi_funcion_sen(1, 0, 2, 0, 1000, 1000)

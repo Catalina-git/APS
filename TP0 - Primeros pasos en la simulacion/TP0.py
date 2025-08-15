@@ -22,11 +22,11 @@ def mi_funcion_sen(amplitud = 1, offset = 0, frecuencia = 1, fase = 0, N = 1000,
 
 
 # Defino mis variables
+N = 1000 
 amplitud = 2
 offset = 1
-frecuencia = 5
+frecuencia = N
 fase = np.pi/4
-N = 1000
 frecADC = 1000
 
 # Llamo a mi funcion
@@ -43,9 +43,9 @@ plt.plot(tt, xx, linestyle = '-', color = 'r' ) # Genero el grafico de la señal
 # Genero otra ventana para los graficos
 plt.figure(figsize=(10, 6))  # Tamaño de la figura (ancho, alto)
 
-# Señal 500 Hz
+# Señal 500 Hz, es Nyquist
 plt.subplot(2, 2, 1)
-tt, xx = mi_funcion_sen(2, 0, 500, np.pi/4, 1000, 100000)
+tt, xx = mi_funcion_sen(2, 0, 500, np.pi/4, 1000, 1000)
 plt.plot(tt, xx, '-', color='blue')
 plt.title("Señal Senoidal con 500 Hz")
 plt.xlabel("Tiempo [s]")
