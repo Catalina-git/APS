@@ -38,7 +38,7 @@ plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud [V]')
 plt.plot(tt, xx, linestyle = '-', color = 'r' ) # Genero el grafico de la señal con linea 'continua' de color 'rojo'
 
-# EJERCICIO BONUS (SIGUIENDO EL TEOREMA DE NYQUIST-SHANNON)
+# EJERCICIO BONUS 
 
 # Genero otra ventana para los graficos
 plt.figure(figsize=(10, 6))  # Tamaño de la figura (ancho, alto)
