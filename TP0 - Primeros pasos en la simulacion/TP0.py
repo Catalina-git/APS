@@ -110,7 +110,7 @@ ttc, xxc = mi_funcion_cuadrada(frecuencia, frecADC, N, offset, fase)
 
 # Graficamos la señal cuadrada generada
 plt.figure(figsize=(10, 4))
-plt.plot(ttc, xxc, label='Señal Cuadrada Aproximada')
+plt.plot(ttc, xxc, label='Señal Cuadrada')
 plt.title('Generación de Señal Cuadrada')
 plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud')
