@@ -32,6 +32,7 @@ BONUS
 # Primero importo la libreria numpy
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy import signal
 
 # Defino mi funcion
 def mi_funcion_sen(amplitud = 1, offset = 0, frecuencia = 1, fase = 0, N = 1000, frecADC = 1000):
@@ -51,9 +52,22 @@ def mi_funcion_sen(amplitud = 1, offset = 0, frecuencia = 1, fase = 0, N = 1000,
 
     return tt, xx
 
+def potencia(xx):
+    return np.sum(xx**2) / len(xx)
 
+
+def mi_funcion_cuadrada (frecuencia, frecADC, N, offset, fase):
+    Ts = 1/frecADC # Es el tiempo en el cual se toma cada muestra
+
+    ttc = np.arange(start = 0, stop= N*Ts, step = Ts)
+
+    xxc = signal.square(2 * np.pi * frecuencia * ttc + fase) + offset
+
+    return ttc, xxc
+
+# ------------------------------- Señal sinusoidal de 2kHz -------------------------------
 # Llamo a mi funcion
-tt, xx = mi_funcion_sen(1, 0, 2, 0, 1000, 1000)
+tt, xx = mi_funcion_sen(1, 0, 2, 0, 1000, 1000) # Pongo frecADC > 2 * frecuencia --> Teorema de Nyquist-Shannon
 
 # Genero otra ventana para los graficos
 plt.figure(figsize=(10, 6))  # Tamaño de la figura (ancho, alto)
@@ -65,7 +79,8 @@ plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud [V]')
 plt.plot(tt, xx, linestyle = '-', color = 'r' ) # Genero el grafico de la señal con linea 'continua' de color 'rojo'
 
-tt, xx = mi_funcion_sen(5, 0, 2, np.pi/2, 1000, 1000)
+# ------------------------------- Señal sinusoidal de 2kHz, desfazada en pi/2 -------------------------------
+tt, xx = mi_funcion_sen(5, 0, 2, np.pi/2, 1000, 1000) # Es igual que la anterior, pero al desfasarla, en el grafico se ve el mismo grafico pero dado vuelta
 
 # Grafico la señal senoidal de 2KHz, pero amplificada y desfazada en pi/2
 plt.subplot(2, 2, 2)
@@ -74,4 +89,13 @@ plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud [V]')
 plt.plot(tt, xx, linestyle = '-' ) # Genero el grafico de la señal
 
+# ------------------------------- Señal cuadrada de 4kHz -------------------------------
+# Defino mis variables
+N = 100
+offset = 0
+frecuencia = 4
+fase = 0
+frecADC = 100
 
+# Llamo a mi funcion
+ttc, xxc = mi_funcion_cuadrada(frecuencia, frecADC, N, offset, fase)

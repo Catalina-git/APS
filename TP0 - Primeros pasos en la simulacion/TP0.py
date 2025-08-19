@@ -55,7 +55,7 @@ plt.grid(True)
 
 # Señal 999 Hz
 plt.subplot(2, 2, 2)
-tt, xx = mi_funcion_sen(1, 0, 999, 0, 1000, 5000)
+tt, xx = mi_funcion_sen(1, 0, 999, 0, 1000, 100000)
 plt.plot(tt, xx, '-', color='green')
 plt.title("Señal Senoidal con 999 Hz")
 plt.xlabel("Tiempo [s]")
@@ -64,7 +64,7 @@ plt.grid(True)
 
 # Señal 1001 Hz
 plt.subplot(2, 2, 3)
-tt, xx = mi_funcion_sen(1, 0, 1001, 0, 1000, 5000)
+tt, xx = mi_funcion_sen(1, 0, 1001, 0, 1000, 100000)
 plt.plot(tt, xx, '-', color='orange')
 plt.title("Señal Senoidal con 1001 Hz")
 plt.xlabel("Tiempo [s]")
@@ -73,7 +73,7 @@ plt.grid(True)
 
 # Señal 2001 Hz
 plt.subplot(2, 2, 4)
-tt, xx = mi_funcion_sen(1, 0, 2001, 0, 1000, 10000)
+tt, xx = mi_funcion_sen(1, 0, 2001, 0, 1000, 100000)
 plt.plot(tt, xx, '-', color='grey')
 plt.title("Señal Senoidal con 2001 Hz")
 plt.xlabel("Tiempo [s]")
