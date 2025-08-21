@@ -157,3 +157,4 @@ plt.plot(ttc, xxc, linestyle = '-', label='Señal Cuadrada de 4kHz') # Genero el
 plt.plot(ttc, xxc, 'o--')
 
 # ------------------------------- Pulso rectangular de 10ms -------------------------------
+
