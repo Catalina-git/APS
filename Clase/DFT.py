@@ -26,27 +26,43 @@ fs = 1000
 tt, xx = mi_funcion_sen(1, 0, 1, 0, N, fs)
 X = np.zeros(N, dtype = np.complex128)
 
+# ------------------------------------------- Transformada discreta de Fourier ---------------------------------------
 for k in range(N):
     for n in range(N):
-        X += [xx[n] * np.exp(-1j * k * 2 * (np.pi / N) * n)]
+        X[k] += xx[n] * np.exp(-1j * k * 2 * (np.pi / N) * n)
 
 print(X)
 
+# ----------------------------------------------------- GRAFICOS -----------------------------------------------------
 #Grafico la senoidal de 1Hz
 plt.subplot(1,2,1)
 plt.title("Funcion senoidal de 1Hz")
 plt.xlabel('Tiempo [s]')
-plt.ylabel('sen()')
-plt.plot(tt, xx, linestyle = '-') # Genero el grafico de la señal con linea 'continua' de color 'rojo'
-plt.plot(tt, xx, 'o--')
+plt.ylabel('Amplitud')
+#plt.plot(tt, xx, linestyle = '-') # Genero el grafico de la señal con linea 'continua' de color 'rojo'
+plt.plot(tt, xx, 'b-')
+plt.grid()
 
-X_modulo = np.abs(X)
-frecuencia = np.arange(N) * fs/N
+frecuencia = np.linspace(-fs/2, (fs/2) - (fs/N), N) # Esto genera N puntos equiespaciados entre -fs/2 y ((fs/2) - (fs/N))
+X_modulo = np.abs(np.fft.fftshift(X))
+
+"""
+La funcion "np.fft.fftshift(X)" reorganiza el array para que 
+las frecuencias negativas aparezcan a la izquierda y las positivas a la derecha. 
+Sin esto, el gráfico estaría desordenado, con el pico de 1 Hz en un extremo.
+
+"""
+
 # Grafico el modulo de la DFT del seno de 1Hz de frecuencia
 plt.subplot(1,2,2)
-plt.title("DFT")
-plt.xlabel('Tiempo [s]')
-plt.ylabel('Funcion transformada')
-plt.plot(frecuencia, X_modulo, linestyle = '-') # Genero el grafico de la señal con linea 'continua' de color 'rojo'
-plt.plot(frecuencia, X_modulo, 'o--')
-plt.xlim(-fs/2, fs/2)
+plt.title("DFT (modulo)")
+plt.xlabel('Frecuencia [Hz]')
+plt.ylabel('|X[k]|')
+#plt.plot(frecuencia, X_modulo, linestyle = '-') # Genero el grafico de la señal con linea 'continua' de color 'rojo'
+plt.plot(frecuencia, X_modulo, 'r-')
+plt.grid()
+
+plt.tight_layout()
+plt.show
+
+
