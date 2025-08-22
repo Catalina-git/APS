@@ -35,7 +35,7 @@ print(X)
 
 # ----------------------------------------------------- GRAFICOS -----------------------------------------------------
 #Grafico la senoidal de 1Hz
-plt.subplot(1,2,1)
+plt.subplot(2,2,1)
 plt.title("Funcion senoidal de 1Hz")
 plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud')
@@ -54,7 +54,7 @@ Sin esto, el gráfico estaría desordenado, con el pico de 1 Hz en un extremo.
 """
 
 # Grafico el modulo de la DFT del seno de 1Hz de frecuencia
-plt.subplot(1,2,2)
+plt.subplot(2,2,2)
 plt.title("DFT (modulo)")
 plt.xlabel('Frecuencia [Hz]')
 plt.ylabel('|X[k]|')
@@ -65,4 +65,24 @@ plt.grid()
 plt.tight_layout()
 plt.show
 
+N = 8
+X = np.zeros(N, dtype = np.complex128)
+x = 4 + 3 * np.sin(n * np.pi / 2)
 
+for k in range(N):
+    for n in range(N):
+        X[k] += x[n] * np.exp(-1j * k * 2 * (np.pi / N) * n)
+
+print(X)
+
+X_modulo = np.abs(np.fft.fftshift(X))
+
+plt.subplot(2,2,1)
+plt.title("DFT (modulo)")
+plt.xlabel('k')
+plt.ylabel('|X[k]|')
+plt.plot(np.arange(N), X_modulo)
+plt.grid()
+
+plt.tight_layout()
+plt.show

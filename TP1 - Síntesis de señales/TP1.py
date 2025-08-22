@@ -100,13 +100,14 @@ def mi_funcion_cuadrada (frecuencia, frecADC, N, offset, fase):
 
     return ttc, xxc
 
+# ------------------------------- EJERCICIO 1 -------------------------------
 # ------------------------------- Señal sinusoidal de 2kHz -------------------------------
 # Llamo a mi funcion
 tt, xx = mi_funcion_sen(1, 0, 2000, 0, 100, 40000) # Pongo frecADC > 2 * frecuencia --> Teorema de Nyquist-Shannon
 
 # Genero otra ventana para los graficos
 plt.figure(figsize=(10, 6))  # Tamaño de la figura (ancho, alto)
-plt.subplot(1,2,1)
+plt.subplot(2,2,1)
 
 plt.title("Señal Sinusoidal")
 
@@ -115,6 +116,7 @@ plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud [V]')
 plt.plot(tt, xx, linestyle = '-', label='Señal Sinusoidal de 2kHz') # Genero el grafico de la señal con linea 'continua' de color 'rojo'
 plt.plot(tt, xx, 'o--')
+plt.lenegd()
 
 # ------------------------------- Señal sinusoidal de 2kHz, amplificada y desfazada en pi/2 -------------------------------
 tt, xx = mi_funcion_sen(2, 0, 2000, np.pi/2, 100, 40000) 
@@ -124,6 +126,7 @@ plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud [V]')
 plt.plot(tt, xx, label='Señal Sinusoidal de 2kHz, amplificada y desfazada en pi/2') # Genero el grafico de la señal
 plt.plot(tt, xx, 'o--')
+plt.lenegd()
 
 # ------------------------------- Señal sinusoidal modulada por otra señal sinusoidal de 1kHz -------------------------------
 tt, xx = mi_funcion_sen_modulada(1, 0, 1000, np.pi/2, 100, 40000)
@@ -133,6 +136,7 @@ plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud [V]')
 plt.plot(tt, xx, linestyle = '-', label='Señal Sinusoidal modulada') # Genero el grafico de la señal
 plt.plot(tt, xx, 'o--')
+plt.lenegd()
 
 # ------------------------------- Misma señal pero recortada al 75% de su potencia -------------------------------
 tt, xx = mi_funcion_sen_recortada(1, 0, 2000, 0, 100, 40000)
@@ -142,6 +146,7 @@ plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud [V]')
 plt.plot(tt, xx, linestyle = '-', label='Señal Sinusoidal de 2kHz recortada al 75% de amplitud') # Genero el grafico de la señal con linea 'continua' de color 'rojo'
 plt.plot(tt, xx, 'o--')
+plt.lenegd()
 
 # ------------------------------- Señal cuadrada de 4kHz -------------------------------
 
@@ -149,12 +154,44 @@ plt.plot(tt, xx, 'o--')
 ttc, xxc = mi_funcion_cuadrada(4000, 80000, 100, 0, 0)
 
 # Grafico la señal cuadrada
-plt.subplot(1,2,2)
+plt.subplot(2,2,2)
 plt.title('Señal cuadrada de 4kHz')
 plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud [V]')
 plt.plot(ttc, xxc, linestyle = '-', label='Señal Cuadrada de 4kHz') # Genero el grafico de la señal con linea 'continua' de color 'rojo'
 plt.plot(ttc, xxc, 'o--')
+plt.lenegd()
 
 # ------------------------------- Pulso rectangular de 10ms -------------------------------
+M = 8
+x = np.zeros(M)
 
+x[3:5] = 1 # Los elementos 4, 5 y 6 valen 1
+
+print(x)
+
+# Grafico
+plt.subplot(2,2,3)
+plt.plot(x)
+# otra manera de graficar el pulso: plt.stem(x)
+
+
+# ------------------------------- EJERCICIO 3 -------------------------------
+# ------------------------------- Autocorrelacion -------------------------------
+"""
+Rxx = signal.correlate(x,x)
+
+# Grafico
+plt.subplot(2,2,4)
+plt.stem(Rxx)
+
+print(x)
+ 
+Rxx = np.zeros(M)
+
+for tau in range(M - 1):
+    for i in range(M): # Tambien puedo poner in len(x)
+        Rxx(i) = x[i] * x[i + tau]
+
+"""
+        
