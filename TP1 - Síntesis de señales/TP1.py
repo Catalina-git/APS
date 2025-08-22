@@ -114,9 +114,8 @@ plt.title("Señal Sinusoidal")
 # Grafico la señal senoidal de 2KHz
 plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud [V]')
-plt.plot(tt, xx, linestyle = '-', label='Señal Sinusoidal de 2kHz') # Genero el grafico de la señal con linea 'continua' de color 'rojo'
-plt.plot(tt, xx, 'o--')
-plt.lenegd()
+plt.plot(tt, xx, 'o--',  label = 'Sinusoidal de 2kHz')
+plt.legend()
 
 # ------------------------------- Señal sinusoidal de 2kHz, amplificada y desfazada en pi/2 -------------------------------
 tt, xx = mi_funcion_sen(2, 0, 2000, np.pi/2, 100, 40000) 
@@ -124,9 +123,8 @@ tt, xx = mi_funcion_sen(2, 0, 2000, np.pi/2, 100, 40000)
 # Grafico la señal senoidal de 2KHz, pero amplificada y desfazada en pi/2
 plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud [V]')
-plt.plot(tt, xx, label='Señal Sinusoidal de 2kHz, amplificada y desfazada en pi/2') # Genero el grafico de la señal
-plt.plot(tt, xx, 'o--')
-plt.lenegd()
+plt.plot(tt, xx, 'x--', label = '2kHz, amplificada y desfazada en pi/2')
+plt.legend()
 
 # ------------------------------- Señal sinusoidal modulada por otra señal sinusoidal de 1kHz -------------------------------
 tt, xx = mi_funcion_sen_modulada(1, 0, 1000, np.pi/2, 100, 40000)
@@ -134,9 +132,8 @@ tt, xx = mi_funcion_sen_modulada(1, 0, 1000, np.pi/2, 100, 40000)
 # Grafico la señal senoidal de 2KHz, pero modulada por otra señal de la mitad de la frecuencia
 plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud [V]')
-plt.plot(tt, xx, linestyle = '-', label='Señal Sinusoidal modulada') # Genero el grafico de la señal
-plt.plot(tt, xx, 'o--')
-plt.lenegd()
+plt.plot(tt, xx, 's--', label = 'Sinusoidal de 1kHz') # Genero el grafico de la señal
+plt.legend()
 
 # ------------------------------- Misma señal pero recortada al 75% de su potencia -------------------------------
 tt, xx = mi_funcion_sen_recortada(1, 0, 2000, 0, 100, 40000)
@@ -144,9 +141,8 @@ tt, xx = mi_funcion_sen_recortada(1, 0, 2000, 0, 100, 40000)
 # Grafico la señal recortada
 plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud [V]')
-plt.plot(tt, xx, linestyle = '-', label='Señal Sinusoidal de 2kHz recortada al 75% de amplitud') # Genero el grafico de la señal con linea 'continua' de color 'rojo'
-plt.plot(tt, xx, 'o--')
-plt.lenegd()
+plt.plot(tt, xx, '*--', label = 'Recortada al 75%')
+plt.legend()
 
 # ------------------------------- Señal cuadrada de 4kHz -------------------------------
 
@@ -159,8 +155,8 @@ plt.title('Señal cuadrada de 4kHz')
 plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud [V]')
 plt.plot(ttc, xxc, linestyle = '-', label='Señal Cuadrada de 4kHz') # Genero el grafico de la señal con linea 'continua' de color 'rojo'
-plt.plot(ttc, xxc, 'o--')
-plt.lenegd()
+plt.plot(ttc, xxc, 'o--', label = 'Señal cuaddrada de 4Hz')
+plt.legend()
 
 # ------------------------------- Pulso rectangular de 10ms -------------------------------
 M = 8
