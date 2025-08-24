@@ -167,7 +167,7 @@ else:
     scipy tiene una funcion que te hace la correlacion
 """
 
-# ------------------------------- Autocorrelacion -------------------------------
+# ------------------------------- Correlacion -------------------------------
 rxx1 = signal.correlate(fa,fa)
 
 rxx2 = signal.correlate(fa,fb)
