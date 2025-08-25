@@ -21,17 +21,6 @@ def mi_funcion_sen(amplitud = 1, offset = 0, frecuencia = 1, fase = 0, N = 1000,
 
     return tt, xx
 
-# Funcion del coseno
-def mi_funcion_cos(amplitud = 1, offset = 0, frecuencia = 1, fase = 0, N = 1000, fs = 1000):
-    
-    Ts = 1/fs # Es el tiempo en el cual se toma cada muestra
-
-    tt = np.arange(start = 0, stop= N*Ts, step = Ts)
-
-    xx = amplitud * np.cos(2 * np.pi * frecuencia * tt + fase) + offset
-
-    return tt, xx
-
 # Funcion de una señal sinusoidal modulada en amplitud por otra señal sinusoidal de la mitad de frecuencia
 def mi_funcion_sen_modulada(amplitud = 1, offset = 0, frecuencia = 1, fase = 0, N = 1000, fs = 1000):
    
@@ -89,10 +78,23 @@ def mi_funcion_pulso (t0, tf, N, h):
 def mi_funcion_ortogonalidad (f,g):
     productoInterno = np.dot(f,g)
     
+    print("Producto interno entre las dos señales: ", productoInterno)
+    
     if (productoInterno == 0):
         return True
     else: 
         return False
+    
+# Funcion del coseno
+def mi_funcion_cos(amplitud = 1, offset = 0, frecuencia = 1, fase = 0, N = 1000, fs = 1000):
+    
+    Ts = 1/fs # Es el tiempo en el cual se toma cada muestra
+
+    tt = np.arange(start = 0, stop= N*Ts, step = Ts)
+
+    xx = amplitud * np.cos(2 * np.pi * frecuencia * tt + fase) + offset
+
+    return tt, xx
 
 # Funcion para verificar la propiedad trigonometrica que me dan
 def mi_funcion_propiedad(a,b):
@@ -108,6 +110,12 @@ def mi_funcion_propiedad(a,b):
     
     return f, g
     
-    
+# Funcion para calcular la potencia de una señal
+def calcular_potencia(x):
+    return np.mean(x**2)
+
+# Funcion para calcular la energia de una señal
+def calcular_energia(x):
+    return np.sum(x**2)
     
     

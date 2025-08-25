@@ -38,6 +38,10 @@ plt.ylabel('Amplitud [V]')
 plt.plot(_,fa, 'o--',  label = 'Sinusoidal de 2kHz')
 plt.legend()
 
+# Calculo la potenacia
+x = ts1.calcular_potencia(fa)
+print("Potencia de la señal fa: ", x)
+
 """ ITEM b """
 # ------------------------------- Señal sinusoidal de 2kHz, amplificada y desfazada en pi/2 -------------------------------
 _,fb = ts1.mi_funcion_sen(2, 0, 2000, np.pi/2, 100, 40000) 
@@ -57,9 +61,13 @@ plt.ylabel('Amplitud [V]')
 plt.plot(_,fb, 'x:', label = '2kHz, amplificada y desfazada en pi/2')
 plt.legend()
 
+# Calculo la potenacia
+x = ts1.calcular_potencia(fb)
+print("Potencia de la señal fb: ", x)
+
 """ ITEM c """
 # ------------------------------- Señal sinusoidal modulada por otra señal sinusoidal de 1kHz -------------------------------
-_,fc = ts1.mi_funcion_sen_modulada(1, 0, 1000, np.pi/2, 100, 40000)
+_,fc = ts1.mi_funcion_sen_modulada(1, 0, 1000, 0, 100, 40000)
 
 # Grafico la señal senoidal de 2KHz, pero modulada por otra señal de la mitad de la frecuencia
 plt.subplot(2,2,3)
@@ -75,6 +83,10 @@ plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud [V]')
 plt.plot(_, fc, 'x:', label = 'Señal modulada') # Genero el grafico de la señal
 plt.legend()
+
+# Calculo la potenacia
+x = ts1.calcular_potencia(fc)
+print("Potencia de la señal fc: ", x)
 
 """ ITEM d """
 # ------------------------------- Misma señal pero recortada al 75% de su potencia -------------------------------
@@ -95,6 +107,10 @@ plt.ylabel('Amplitud [V]')
 plt.plot(_,fd, '*--', label = 'Señal recortada al 75%')
 plt.legend()
 
+# Calculo la potenacia
+x = ts1.calcular_potencia(fd)
+print("Potencia de la señal fd: ", x)
+
 """ ITEM e """
 # ------------------------------- Señal cuadrada de 4kHz -------------------------------
 # Llamo a mi funcion
@@ -109,6 +125,10 @@ plt.ylabel('Amplitud [V]')
 plt.plot(_,fe, 'o--', label = 'Señal cuadrada de 4Hz')
 plt.legend()
 
+# Calculo la potenacia
+x = ts1.calcular_potencia(fe)
+print("Potencia de la señal fe: ", x)
+
 """ ITEM f """
 # ------------------------------- Pulso rectangular de 10ms -------------------------------
 ff = ts1.mi_funcion_pulso(1, 11, 100, 1)
@@ -119,11 +139,15 @@ plt.title('Pulso rectangular de 10ms')
 plt.plot(ff, 'o--', label = 'Pulso rectangular de 10ms')
 # otra manera de graficar el pulso: 
 # plt.stem(x)
-plt.xlabel('Muestras')
+plt.xlabel('Tiempo[ms]')
 plt.ylabel('Amplitud [V]')
 plt.axis([-2,15,0,1.5]) #Limites del grafico ([Xmin,Xmax,Ymin,Ymax]), si no se agrega este plt (axis) el programa por default busca mostrar todo el grafico completo
 plt.legend()
 plt.show()
+
+# Calculo la energia
+x = ts1.calcular_energia(ff)
+print("Energia de la señal ff: ", x)
 
 
 # ------------------------------- EJERCICIO 2 -------------------------------
@@ -136,29 +160,29 @@ print("\nORTOGONALIDAD ENTRE SEÑALES")
 
 # Verifico ortogonalidad
 if (ts1.mi_funcion_ortogonalidad(fa, fb)):
-    print("La funcion del item a y del item b son ortogonales")
+    print("La funcion del item a y del item b son ortogonales\n")
 else:
-    print("La funcion del item a y del item b NO son ortogonales")
+    print("La funcion del item a y del item b NO son ortogonales\n")
     
 if (ts1.mi_funcion_ortogonalidad(fa, fc)):
-  print("La funcion del item a y del item c son ortogonales")
+  print("La funcion del item a y del item c son ortogonales\n")
 else:
-  print("La funcion del item a y del item c NO son ortogonales")
+  print("La funcion del item a y del item c NO son ortogonales\n")
         
 if (ts1.mi_funcion_ortogonalidad(fa, fd)):
-   print("La funcion del item a y del item d son ortogonales")
+   print("La funcion del item a y del item d son ortogonales\n")
 else:
-   print("La funcion del item a y del item d NO son ortogonales")
+   print("La funcion del item a y del item d NO son ortogonales\n")
             
 if (ts1.mi_funcion_ortogonalidad(fa, fe)):
-  print("La funcion del item a y del item e son ortogonales")
+  print("La funcion del item a y del item e son ortogonales\n")
 else:
-  print("La funcion del item a y del item e NO son ortogonales")
+  print("La funcion del item a y del item e NO son ortogonales\n")
   
 if (ts1.mi_funcion_ortogonalidad(fa, ff)):
-    print("La funcion del item a y del item f son ortogonales")
+    print("La funcion del item a y del item f son ortogonales\n")
 else:
-    print("La funcion del item a y del item f NO son ortogonales")
+    print("La funcion del item a y del item f NO son ortogonales\n")
 
 # ------------------------------- EJERCICIO 3 -------------------------------
 """
