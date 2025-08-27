@@ -204,42 +204,45 @@ rxx5 = signal.correlate(fa,fe)
 
 rxx6 = signal.correlate(fa,ff)
 
+eje = np.arange(-len(fa) + 1, len(fa)) 
+
 # Grafico de las correlaciones
 plt.figure()
 
 plt.subplot(2,3,1)
 plt.title('Autocorrelacion de fa')
-plt.plot(rxx1, 'o:')
+plt.plot(eje,rxx1, 'o:')
 plt.xlabel('Retardo [muestras]')
 plt.ylabel('Valor de la autocorrelación')
 
+
 plt.subplot(2,3,2)
 plt.title('Correlacion entre fa y fb')
-plt.plot(rxx2, 'o:')
+plt.plot(eje,rxx2, 'o:')
 plt.xlabel('Retardo [muestras]')
 plt.ylabel('Valor de correlación')
 
 plt.subplot(2,3,3)
 plt.title('Correlacion entre fa y fc')
-plt.plot(rxx3, 'o:')
+plt.plot(eje,rxx3, 'o:')
 plt.xlabel('Retardo [muestras]')
 plt.ylabel('Valor de correlación')
 
 plt.subplot(2,3,4)
 plt.title('Correlacion entre fa y fd')
-plt.plot(rxx4, 'o:')
+plt.plot(eje,rxx4, 'o:')
 plt.xlabel('Retardo [muestras]')
 plt.ylabel('Valor de correlación')
 
 plt.subplot(2,3,5)
 plt.title('Correlacion entre fa y fe')
-plt.plot(rxx5, 'o:')
+plt.plot(eje,rxx5, 'o:')
 plt.xlabel('Retardo [muestras]')
 plt.ylabel('Valor de correlación')
 
 plt.subplot(2,3,6)
 plt.title('Correlacion entre fa y ff')
-plt.plot(rxx6, 'o:')
+plt.plot(eje,rxx6, 'o:')
 plt.xlabel('Retardo [muestras]')
 plt.ylabel('Valor de correlación')
 
