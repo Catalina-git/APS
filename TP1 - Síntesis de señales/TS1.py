@@ -67,7 +67,7 @@ print("Potencia de la señal fb: ", x)
 
 """ ITEM c """
 # ------------------------------- Señal sinusoidal modulada por otra señal sinusoidal de 1kHz -------------------------------
-_,fc = ts1.mi_funcion_sen_modulada(1, 0, 1000, 0, 100, 40000)
+_,fc = ts1.mi_funcion_sen_modulada(1, 0, 2000, 0, 100, 40000)
 
 # Grafico la señal senoidal de 2KHz, pero modulada por otra señal de la mitad de la frecuencia
 plt.subplot(2,2,3)
@@ -114,7 +114,7 @@ print("Potencia de la señal fd: ", x)
 """ ITEM e """
 # ------------------------------- Señal cuadrada de 4kHz -------------------------------
 # Llamo a mi funcion
-_,fe = ts1.mi_funcion_cuadrada(4000, 80000, 100, 0, 0)
+_,fe = ts1.mi_funcion_cuadrada(4000, 40000, 100, 0, 0)
 
 # Grafico la señal cuadrada
 plt.figure()
