@@ -23,18 +23,56 @@ def mi_funcion_sen(amplitud = 1, offset = 0, frecuencia = 1, fase = 0, N = 1000,
 
 # Resolucion espectral unitaria --> N = fs
 N = 1000
-t,x = mi_funcion_sen(1, 0, N/4, 0, N, N)
+t1,x1 = mi_funcion_sen(1, 0, N/4, 0, N, N)
 
-xdfft = np.fft(x, n=None, axis=-1, norm=None, out=None)
+xdfft1 = fft(x1)
+
+modulo_xdfft1 = np.abs(xdfft1)
 
 plt.figure()  # Tamaño de la figura (ancho, alto)
+plt.subplot(1,3,1)
 
-plt.title("DFFT")
+plt.title("Modulo de la DFFT con frecuencia = N/4")
 
 # Grafico la señal senoidal de 2KHz
 plt.xlabel('Tiempo [s]')
-plt.ylabel('Amplitud [V]')
-plt.plot(xdfft, 'o--')
+plt.ylabel('|x|')
+plt.plot(modulo_xdfft1, 'o--')
 plt.show()
 
+
+
+t2,x2 = mi_funcion_sen(1, 0, (N/4) + 0.5, 0, N, N)
+
+xdfft2 = fft(x2)
+
+modulo_xdfft2 = np.abs(xdfft2)
+
+plt.subplot(1,3,2)
+
+plt.title("Modulo de la DFFT con frecuencia = (N/4) + 0.5")
+
+# Grafico la señal senoidal de 2KHz
+plt.xlabel('Tiempo [s]')
+plt.ylabel('|x|')
+plt.plot(modulo_xdfft2, 'o--')
+plt.show()
+
+
+
+t3,x3 = mi_funcion_sen(1, 0, (N/4) + 1, 0, N, N)
+
+xdfft3 = fft(x3)
+
+modulo_xdfft3 = np.abs(xdfft3)
+
+plt.subplot(1,3,3)
+
+plt.title("Modulo de la DFFT con frecuencia = (N/4) + 1")
+
+# Grafico la señal senoidal de 2KHz
+plt.xlabel('Tiempo [s]')
+plt.ylabel('|x|')
+plt.plot(modulo_xdfft3, 'o--')
+plt.show()
 
