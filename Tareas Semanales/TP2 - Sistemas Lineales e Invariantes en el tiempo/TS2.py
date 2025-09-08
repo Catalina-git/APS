@@ -64,7 +64,6 @@ plt.title('Salida del sistema de la señal senoidal de 2kHz')
 plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud')
 plt.legend()
-plt.grid(True)
 plt.tight_layout()
 
 # Señal amplificada y desfazada
@@ -75,7 +74,6 @@ plt.title('Salida del sistema de la señal amplificada y desfazada')
 plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud')
 plt.legend()
-plt.grid(True)
 plt.tight_layout()
 
 # Señal modulada
@@ -86,7 +84,6 @@ plt.title('Salida del sistema de la señal modulada')
 plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud')
 plt.legend()
-plt.grid(True)
 plt.tight_layout()
 
 # Señal recortada al 75%
@@ -97,7 +94,6 @@ plt.title('Salida del sistema de la señal recortada al 75%')
 plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud')
 plt.legend()
-plt.grid(True)
 plt.tight_layout()
 
 # Señal cuadrada de 4kHz
@@ -108,7 +104,6 @@ plt.title('Salida del sistema de la señal cuadrada de 4kHz')
 plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud')
 plt.legend()
-plt.grid(True)
 plt.tight_layout()
 
 # Pulso rectangular de 10ms
@@ -119,13 +114,12 @@ plt.title('Salida del sistema del pulso rectangular de 10ms')
 plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud')
 plt.legend()
-plt.grid(True)
 plt.tight_layout()
 
 plt.show()
 
 # CALCULO  LA POTENCIA 
-print("\nPOTENCIAS DEL EJERCICIO 1 (ITEM a)\n")
+print("\nPOTENCIAS Y ENERGIAS DEL EJERCICIO 1 (ITEM a)\n")
 
 # Calculo la potenacia
 p1 = ts2.calcular_potencia(y1)
@@ -161,15 +155,14 @@ yy5 = np.convolve(x5, h)
 yy6 = np.convolve(x6, h)
 
 # Vector de tiempo para convolución (mismo fs, pero puede tener más muestras)
-
 t_conv1 = np.arange(len(yy1)) / fs
 t_conv2 = np.arange(len(yy2)) / fs
 t_conv3 = np.arange(len(yy3)) / fs
 t_conv4 = np.arange(len(yy4)) / fs
 t_conv5 = np.arange(len(yy5)) / fs
-
 dt = 1/fs
-t = np.arange(len(x6)) * dt
+t_yy6 = np.arange(len(yy6)) * dt
+t_x6 = np.arange(len(x6)) * dt
 
 # Grafico --> deberia darme igual que lo calculado a traves de la ecuacion en diferencias
 plt.figure()
@@ -177,49 +170,63 @@ plt.figure()
 plt.subplot(2, 3, 1)
 plt.plot(t_conv1, yy1, 'x-', label='Salida')
 plt.plot(t1, x1, 'o-', label='Entrada')
-plt.title('Convolución de la función a')
+plt.title('Salida de la funcion senoidal calculada con convolucion')
 plt.xlabel('Tiempo [s]')
+plt.xlim(0, max(t1))
 plt.legend()
+plt.tight_layout()
 
 plt.subplot(2, 3, 2)
 plt.plot(t_conv2, yy2, 'x-', label = 'Salida')
 plt.plot(t2,x2, 'o-', label = 'Entrada')
-plt.title('Colvolucion de la funcion b')
-plt.xlabel('Numero de muestras')
+plt.title('Salida de la funcion senoidal amplificada y desfazada calculada con convolucion')
+plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud')
+plt.xlim(0, max(t2))
 plt.legend()
+plt.tight_layout()
 
 plt.subplot(2, 3, 3)
 plt.plot(t_conv3, yy3, 'x-', label = 'Salida')
 plt.plot(t3, x3, 'o-', label = 'Entrada')
-plt.title('Colvolucion de la funcion c')
-plt.xlabel('Numero de muestras')
+plt.title('Salida de la funcion modulada calculada con convolucion')
+plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud')
+plt.xlim(0, max(t3))
 plt.legend()
+plt.tight_layout()
 
 plt.subplot(2, 3, 4)
 plt.plot(t_conv4, yy4, 'x-', label = 'Salida')
 plt.plot(t4, x4, 'o-', label = 'Entrada')
-plt.title('Colvolucion de la funcion d')
-plt.xlabel('Numero de muestras')
+plt.title('Salida de la funcion recortada calculada con convolucion')
+plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud')
+plt.xlim(0, max(t4))
 plt.legend()
+plt.tight_layout()
 
 plt.subplot(2, 3, 5)
 plt.plot(t_conv5, yy5, 'x-', label = 'Salida')
 plt.plot(t5, x5, 'o-', label = 'Entrada')
-plt.title('Colvolucion de la funcion e')
-plt.xlabel('Numero de muestras')
+plt.title('Salida de la funcion cuadrada calculada con convolucion')
+plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud')
+plt.xlim(0, max(t5))
 plt.legend()
+plt.tight_layout()
 
 plt.subplot(2, 3, 6)
-plt.plot(t, yy6, 'x-', label = 'Salida')
-plt.plot(t, x6, 'o-', label = 'Entrada')
-plt.title('Colvolucion de la funcion f')
-plt.xlabel('Numero de muestras')
+plt.plot(t_yy6, yy6, 'x-', label = 'Salida')
+plt.plot(t_x6, x6, 'o-', label = 'Entrada')
+plt.title('Salida del pulso rectangular calculada con convolucion')
+plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud')
+plt.xlim(0, max(t_x6))
 plt.legend()
+plt.tight_layout()
+
+plt.show()
 
 # CALCULO LA POTENCIA
 print("\n\nPOTENCIAS DEL EJERCICIO 1 (ITEM b)\n")
@@ -268,6 +275,26 @@ h1 = ts2.respuesta_impulso(a1, b1)
 # Ecuacion 2
 h2 = ts2.respuesta_impulso(a2, b2)
 
+# Respuesta al impulso de ambos sistemas
+plt.figure(figsize=(20,20))
+
+# Ecuación 1
+plt.subplot(1, 2, 1)
+plt.plot(h1, 'o-')
+plt.title("Respuesta al impulso - Ecuación 1")
+plt.xlabel("n")
+plt.ylabel("h1[n]")
+
+# Ecuación 2
+plt.subplot(1, 2, 2)
+plt.plot(h2, 'o-')  # muestro primeras 100 muestras
+plt.title("Respuesta al impulso - Ecuación 2")
+plt.xlabel("n")
+plt.ylabel("h2[n]")
+
+plt.tight_layout()
+plt.show()
+
 # Llamo a mis funciones
 # Para la ecuacion 1
 y1 = np.convolve(x1, h1)
@@ -275,32 +302,33 @@ y1 = np.convolve(x1, h1)
 # Para la ecuacion 2
 y2 = np.convolve(x1, h2)
 
+# Vector de tiempo para convolución (mismo fs, pero puede tener más muestras)
+t_conv1 = np.arange(len(y1)) / fs
+t_conv2 = np.arange(len(y2)) / fs
 
 # Grafico las soluciones
 plt.figure()
 
 # Ecuacion 1
 plt.subplot(1, 2, 1)
-plt.plot(y1, 'x-', label = 'Salida')
-plt.plot(x1, 'o-', label = 'Entrada')
-plt.title('Salida calculada a traves de h[n] de la primera ecuacion')
+plt.plot(t_conv1, y1, 'x-', label = 'Salida')
+plt.plot(t1, x1, 'o-', label = 'Entrada')
+plt.title('Salida de la primera ecuacion calculada a traves de h[n]')
 plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud')
-plt.xlim(0, 100)
+plt.xlim(0, max(t1))
 plt.legend()
-plt.grid(True)
 plt.tight_layout()
 
 # Ecuacion 2
 plt.subplot(1, 2, 2)
-plt.plot(y2, 'x-', label = 'Salida')
-plt.plot(x1, 'o-', label = 'Entrada')
-plt.title('Salida calculada a traves de h[n] de la segunda ecuación')
+plt.plot(t_conv2, y2, 'x-', label = 'Salida')
+plt.plot(t1, x1, 'o-', label = 'Entrada')
+plt.title('Salida de la segunda ecuacion calculada a traves de h[n]')
 plt.xlabel('Tiempo [s]')
 plt.ylabel('Amplitud')
-plt.xlim(0, 100)
+plt.xlim(0, max(t1))
 plt.legend()
-plt.grid(True)
 plt.tight_layout()
 
 plt.show()
