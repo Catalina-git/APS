@@ -186,8 +186,7 @@ plt.show()
 # - Mejora la resolución visual del espectro: 
 #   los picos se ven más definidos, especialmente en las señales desintonadas.
 # - No elimina el leakage, pero permite verlo con más detalle y distinguir mejor las diferencias entre frecuencias cercanas.
-
-
-
-
-
+# %% DEFINICIONES
+# La densidad espectral de potencia es una funcion que nos permite ver como esta distribuida la potencia de una señal a lo largo de ella.
+# Cuando analizo una senoidal cuya pulsacion no es un multiplo entero de la resolucion espectral, 
+# nos encontramos con un monton de valores inesperados cuando se analiza el espectro de una senoidal. 
