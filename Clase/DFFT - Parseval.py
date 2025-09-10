@@ -178,6 +178,8 @@ print(f"Energia en frecuencias = {energia_frecuencia:.5f}")
 
 z = np.zeros(10*N) # Le paddeo 9N para que haya 10 muestras
 
+Ff=np.arange(N)*df # Mi eje x en Hz
+
 x1p = np.concat((x1, z))
 
 X1p = fft(x1p)
@@ -187,8 +189,9 @@ X1pang = np.angle(X1p)
 df = fs / (10 * N) # Resolucion espectral = [[1/(s*muestras)]
 FfP=np.arange((10*N))*df # Mi eje x en Hz
 
-plt.figure(2)
-plt.plot(Ff, 20*np.log10(X1abs), label='X N/4 abs en dB')
+plt.figure()
+plt.title('Zero Padding')
+plt.plot(Ff, 20*np.log10(modulo_X1), label='X N/4 abs en dB')
 plt.plot(FfP, 20*np.log10(X1Pabs), label='X N/4 abs en dB con padding')
 plt.legend()
 
