@@ -265,7 +265,7 @@ b1 = [1,0,0,0,0,0,0,0,0,0,3] # Coeficientes de entrada x[n]
 a1 = [1.0]
 #Ecuacion 2
 b2 = [1.0] # Coeficientes de entrada x[n]
-a2 = [1,0,0,0,0,0,0,0,0,0,-3] # Coeficientes de salida y[n]
+a2 = [1,0,0,0,0,0,0,0,0,-3] # Coeficientes de salida y[n]
 
 # Calculo la respuesta al impulso
 
@@ -275,19 +275,32 @@ h1 = ts2.respuesta_impulso(a1, b1)
 # Ecuacion 2
 h2 = ts2.respuesta_impulso(a2, b2)
 
-# Respuesta al impulso de ambos sistemas
+# Vector de tiempo discreto
+n = np.arange(len(h1))
+
+n = np.arange(len(h2))
+
+# Interpolo los valores no nulos
+nonzero_n1 = n[h1 != 0]
+nonzero_h1 = h1[h1 != 0]
+
+nonzero_n2 = n[h2 != 0]
+nonzero_h2 = h2[h2 != 0]
+
+
+# Grafico la respuesta al impulso de ambos sistemas
 plt.figure(figsize=(20,20))
 
 # Ecuación 1
 plt.subplot(1, 2, 1)
-plt.plot(h1, 'o-')
+plt.plot(nonzero_n1, nonzero_h1, 'o-')
 plt.title("Respuesta al impulso - Ecuación 1")
 plt.xlabel("n")
 plt.ylabel("h1[n]")
 
 # Ecuación 2
 plt.subplot(1, 2, 2)
-plt.plot(h2, 'o-')  # muestro primeras 100 muestras
+plt.plot(nonzero_n2, nonzero_h2, 'o-')  # muestro primeras 100 muestras
 plt.title("Respuesta al impulso - Ecuación 2")
 plt.xlabel("n")
 plt.ylabel("h2[n]")
