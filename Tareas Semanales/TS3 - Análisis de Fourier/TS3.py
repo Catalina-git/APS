@@ -104,35 +104,72 @@ Discuta la razón por la cual una señal senoidal tiene un espectro tan diferent
 
 """
 
+# Normalizo mi funcion senoidal
 t1, x1 = ts3.mi_funcion_sen(frecuencia = (N/4) * df, nn = N, amplitud = np.sqrt(2), fs = fs) # Sinusoidal con varianza unitaria ==> amp = raiz de 2
 
-varianza = np.var(x1)
-# media = np.mean(x1)
-# desviacion_estandar = np.std(x1)
+# Calculo la varianza
+varianza_x1 = np.var(x1)
 
-print(f"Varianza = {varianza:.5f}")
-# print(f"Media = {media:.5f}")
-# print(f"Desviacion estandar = {desviacion_estandar:.5f}")
+# Caluclo la FFT
+X1 = fft(x1)
 
-t3, x3 = ts3.mi_funcion_sen(frecuencia = (N/4 + 0.25) * df, nn = N, amplitud = np.sqrt(2), fs = fs) # Sinusoidal con varianza unitaria ==> amp = raiz de 2
+modulo_X1 = np.abs(X1)**2
+# Parseval --> ambas energias tienen que ser iguales
+E_t1 = np.sum(np.abs(x1)**2) # Energia en el tiempo
+E_f1 = (1/N) * np.sum(modulo_X1) # Energia en frecuencia
+diferencia1 = np.abs(E_t1 - E_f1) # Tiene que dar cero, o muy cercano a cero
 
-varianza = np.var(x2)
-# media = np.mean(x2)
-# desviacion_estandar = np.std(x2)
+print("------ Senoidal con frecuencia = N/4 ------")
+print(f"Varianza = {varianza_x1:.3f}")
+print("Parseval...")
+print(f"Enetgía en tiempo: {E_t1:.3f}")
+print(f"Enetgía en frecuencia: {E_f1:.3f}")
+print(f"Diferencia: {diferencia1:.3f}")
 
-print(f"Varianza = {varianza:.5f}")
-# print(f"Media = {media:.5f}")
-# print(f"Desviacion estandar = {desviacion_estandar:.5f}")
+
+t2, x2 = ts3.mi_funcion_sen(frecuencia = (N/4 + 0.25) * df, nn = N, amplitud = np.sqrt(2), fs = fs) # Sinusoidal con varianza unitaria ==> amp = raiz de 2
+
+# Calculo la varianza
+varianza_x2 = np.var(x2)
+
+# Caluclo la FFT
+X2 = fft(x2)
+
+modulo_X2 = np.abs(X2)**2
+# Parseval --> ambas energias tienen que ser iguales
+E_t2 = np.sum(np.abs(x2)**2) # Energia en el tiempo
+E_f2 = (1/N) * np.sum(modulo_X2) # Energia en frecuencia
+diferencia2 = np.abs(E_t2 - E_f2) # Tiene que dar cero, o muy cercano a cero
+
+
+print("\n------ Senoidal con frecuencia = N/4 + 0.25 ------")
+print(f"Varianza = {varianza_x2:.3f}")
+print("Parseval...")
+print(f"Enetgía en tiempo: {E_t2:.3f}")
+print(f"Enetgía en frecuencia: {E_f2:.3f}")
+print(f"Diferencia: {diferencia2:.3f}")
 
 t3, x3 = ts3.mi_funcion_sen(frecuencia = (N/4 + 0.5) * df, nn = N, amplitud = np.sqrt(2), fs = fs) # Sinusoidal con varianza unitaria ==> amp = raiz de 2
 
-varianza = np.var(x3)
-# media = np.mean(x3)
-# desviacion_estandar = np.std(x3)
+# Calculo la varianza
+varianza_x3 = np.var(x3)
 
-print(f"Varianza = {varianza:.5f}")
-# print(f"Media = {media:.5f}")
-# print(f"Desviacion estandar = {desviacion_estandar:.5f}")
+# Caluclo la FFT
+X3 = fft(x3)
+
+modulo_X3 = np.abs(X3)**2
+# Parseval --> ambas energias tienen que ser iguales
+E_t3 = np.sum(np.abs(x3)**2) # Energia en el tiempo
+E_f3 = (1/N) * np.sum(modulo_X3) # Energia en frecuencia
+diferencia3 = np.abs(E_t3 - E_f3) # Tiene que dar cero, o muy cercano a cero
+
+
+print("\n------ Senoidal con frecuencia = N/4 + 0.5 ------")
+print(f"Varianza = {varianza_x3:.3f}")
+print("Parseval...")
+print(f"Enetgía en tiempo: {E_t3:.3f}")
+print(f"Enetgía en frecuencia: {E_f3:.3f}")
+print(f"Diferencia: {diferencia3:.3f}")
 
 # %% ANALISIS
 # - Todas las señales tienen potencia unitaria (varianza = 1), 
