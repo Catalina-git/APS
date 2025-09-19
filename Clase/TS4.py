@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from numpy.fft import fft
-import scipy.signal as sp
+from numpy.fft import fft, fftshift
+from scipy.signal import windows
+
 # Modelo de señal, modelo asitivo
 # x(k) = a0 * sen(omega1 * n) + na(n) = S de la cajita de modelo aditivo
 # a0 = raiz de 2
@@ -106,6 +107,22 @@ ruido_mat = np.random.normal(0, np.sqrt(pot_ruido), size = (N, realizaciones))  
 
 x_mat = s_mat + ruido_mat
 
+
+# ventana_flattop = windows.flattop(N).reshape((-1,1))
+# x_ventaneado = x_mat * ventana_flattop
+
+# respuesta_FT = 20 * np.log10(np.abs(fftshift(x_ventaneado / abs(x_ventaneado).max())))
+
+"""
+plt.figure() 
+plt.xlabel('Frecuencia (Hz)')
+plt.ylabel('PDS [db]')
+plt.plot(ff, respuesta_FT)
+# plt.xlim([0, fs/2])
+plt.show()
+# fft((ventana_flattop, 2**14) / (len(ventana_flattop)/2.0))
+"""
+
 # Calculo la FFT normalizada a lo largo del eje del tiempo (filas)
 X_mat = (1/N) * fft(x_mat, axis=0)
 
@@ -119,6 +136,76 @@ plt.xlim([0, fs/2])
 plt.show()
 
 
+# %% Señales ventaneadas
+
+x_vent_fla= ruido_mat * (windows.flattop(N).reshape(-1,1))
+x_vent_BM= ruido_mat * (windows.blackman(N).reshape(-1,1))
+x_vent_R= ruido_mat * (windows.boxcar(N).reshape(-1,1))
+x_vent_H= ruido_mat * (windows.hamming(N).reshape(-1,1))
+
+# Calculo la FFT normalizada a lo largo del eje del tiempo (filas)
+X_mat_ft = (1/N) * fft(x_vent_fla, axis=0)
+X_mat_BM = (1/N) * fft(x_vent_BM, axis=0)
+X_mat_R = (1/N) * fft(x_vent_R, axis=0)
+X_mat_H = (1/N) * fft(x_vent_H, axis=0)
+
+
+# Graficos de la transformada de senales ventanadas con ruido
+plt.figure()
+
+plt.subplot(2,2,1)
+plt.title('BLACKMAN')
+plt.xlabel('Frecuencia (Hz)')
+plt.ylabel('PDS [db]')
+plt.plot(ff, np.log10(2*np.abs(X_mat_BM)**2) * 10)  # Densidad espectral de potencia
+plt.xlim([0, fs/2])
+
+plt.subplot(2,2,2)
+plt.title('RECTANGULAR')
+plt.xlabel('Frecuencia (Hz)')
+plt.ylabel('PDS [db]')
+plt.plot(ff, np.log10(2*np.abs(X_mat_R)**2) * 10)  # Densidad espectral de potencia
+plt.xlim([0, fs/2])
+
+plt.subplot(2,2,3)
+plt.title('HAMMING')
+plt.xlabel('Frecuencia (Hz)')
+plt.ylabel('PDS [db]')
+plt.plot(ff, np.log10(2*np.abs(X_mat_H)**2) * 10)  # Densidad espectral de potencia
+plt.xlim([0, fs/2])
+
+plt.subplot(2,2,4)
+plt.title('FLATOP')
+plt.xlabel('Frecuencia (Hz)')
+plt.ylabel('PDS [db]')
+plt.plot(ff, np.log10(2*np.abs(X_mat_ft)**2) * 10)  # Densidad espectral de potencia
+plt.xlim([0, fs/2])
+
+plt.tight_layout()
+plt.show()
+
+# %% Estimador de energia
+
+trans = 0.35
+bins = 10
+
+estimador_a_FT_10= 10*np.log10(2*(np.abs(X_mat_ft[N//4,:])**2))
+estimador_a_BM_10= 10*np.log10(2*(np.abs(X_mat_BM[N//4,:])**2))
+estimador_a_R_10= 10*np.log10(2*(np.abs(X_mat_R[N//4,:])**2))
+estimador_a_H_10= 10*np.log10(2*(np.abs(X_mat_H[N//4,:])**2))
+
+
+plt.figure()
+plt.hist(estimador_a_BM_10, label = 'Blackman', alpha = trans, bins = bins)
+plt.hist(estimador_a_R_10,label = 'Rectangular', alpha = trans, bins = bins)
+plt.hist(estimador_a_H_10,label = 'Hamming', alpha = trans, bins = bins)
+plt.hist(estimador_a_FT_10,label = 'Flatop', alpha = trans, bins = bins)
+plt.legend()
+plt.show()
+
+# %%Estimador de frecuencia
+
+estimador_omega_10=max(np.angle(X_mat_ft[N//4,:]))
 
 """ 
 def add_noise_with_snr(senoidal, snr_db):
