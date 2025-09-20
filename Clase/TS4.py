@@ -203,9 +203,19 @@ plt.hist(estimador_a_FT_10,label = 'Flatop', alpha = trans, bins = bins)
 plt.legend()
 plt.show()
 
-# %%Estimador de frecuencia
+# %% Estimador de frecuencia
 
-estimador_omega_10=max(np.angle(X_mat_ft[N//4,:]))
+idx_max = np.argmax(np.abs(X_mat_ft), axis=0)  # índice del máximo espectral por realización
+estimador_frec = idx_max * df                  # frecuencia estimada en Hz
+
+plt.figure()
+plt.hist(estimador_frec, bins=20, alpha=0.7)
+plt.xlabel("Frecuencia estimada [Hz]")
+plt.ylabel("Cantidad de ocurrencias")
+plt.title("Histograma del estimador de frecuencia")
+plt.show()
+
+
 
 """ 
 def add_noise_with_snr(senoidal, snr_db):
