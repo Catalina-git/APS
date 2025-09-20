@@ -12,7 +12,7 @@ from scipy.signal import windows
 N = 1000 # Cantidad de muestras
 fs = N # Frecuencia de muestreo
 df = fs/N # Resolucion temporal
-a0 = np.sqrt(2) # Amplitud
+a0 = 2 # Amplitud
 realizaciones = 200 # Sirve para parametrizar la cantidad de realizaciones de sampling ->muestras que vamos a tomar de la frecuencia
 omega_0 = np.pi / 2 # fs/4 -> mitad de banda digital
 fr = np.random.uniform(-2,2) # Variable aleatoria de distribucion normal para la frecuencia
