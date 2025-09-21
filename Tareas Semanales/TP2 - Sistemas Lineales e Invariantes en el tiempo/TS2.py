@@ -304,6 +304,8 @@ plt.plot(nonzero_n2, nonzero_h2, 'o-')  # muestro primeras 100 muestras
 plt.title("Respuesta al impulso - Ecuación 2")
 plt.xlabel("n")
 plt.ylabel("h2[n]")
+plt.ylim(0, 13)
+
 
 plt.tight_layout()
 plt.show()
