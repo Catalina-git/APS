@@ -38,9 +38,9 @@ t3,x3 = ts3.mi_funcion_sen(frecuencia = k0 * df, nn = N, fs = fs)
 
 # CALCULO LA DFFT
 # Las X en mayuscula son en el espectro de frecuencias, transformadas
-X1 = fft(x1)
-X2 = fft(x2)
-X3 = fft(x3)
+X1 = fft(x1) / N # Divido por N para normalizar la FFT
+X2 = fft(x2) / N
+X3 = fft(x3) / N
 
 PDS1 = np.abs(X1)**2
 PDS2 = np.abs(X2)**2
@@ -111,7 +111,7 @@ t1, x1 = ts3.mi_funcion_sen(frecuencia = (N/4) * df, nn = N, amplitud = np.sqrt(
 varianza_x1 = np.var(x1)
 
 # Caluclo la FFT
-X1 = fft(x1)
+X1 = fft(x1) / N
 
 modulo_X1 = np.abs(X1)**2
 # Parseval --> ambas energias tienen que ser iguales
@@ -133,7 +133,7 @@ t2, x2 = ts3.mi_funcion_sen(frecuencia = (N/4 + 0.25) * df, nn = N, amplitud = n
 varianza_x2 = np.var(x2)
 
 # Caluclo la FFT
-X2 = fft(x2)
+X2 = fft(x2) / N
 
 modulo_X2 = np.abs(X2)**2
 # Parseval --> ambas energias tienen que ser iguales
@@ -155,7 +155,7 @@ t3, x3 = ts3.mi_funcion_sen(frecuencia = (N/4 + 0.5) * df, nn = N, amplitud = np
 varianza_x3 = np.var(x3)
 
 # Caluclo la FFT
-X3 = fft(x3)
+X3 = fft(x3) / N
 
 modulo_X3 = np.abs(X3)**2
 # Parseval --> ambas energias tienen que ser iguales
@@ -194,9 +194,9 @@ x2p = np.concatenate((x2, zp))
 x3p = np.concatenate((x3, zp))
 
 # Calculo la FFT
-X1p = fft(x1p)
-X2p = fft(x2p)
-X3p = fft(x3p)
+X1p = fft(x1p) / N
+X2p = fft(x2p) / N
+X3p = fft(x3p) / N
 
 # Ejes de frecuencia
 Npadding = len(x1p)

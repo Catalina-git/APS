@@ -175,3 +175,21 @@ plt.figure()
 plt.title("PDS del silbido con zero padding")
 plt.xlim(0, 5000)
 plt.plot(f_welch3_padding, pds_welch3_padding)
+
+# %% TS5 --> anho de banda de la cucaracha
+# La cucaracha (audio)
+# df_audio = f_audio[1] - f_audio[0]
+# energia_acum_audio = np.cumsum(Px_audio) * df_audio
+# energia_acum_audio_norm = energia_acum_audio / energia_acum_audio[-1]
+# indice_corte_audio = np.where(energia_acum_audio_norm >= 0.99)[0][0]
+# frecuencia_corte_audio = f_audio[indice_corte_audio]
+
+# plt.figure()
+# plt.plot(f_audio, Px_audio, label = 'PSD la cucaracha')
+# plt.axvline(frecuencia_corte_audio, color='orange', linestyle='--', label=f'Fc = {frecuencia_corte_audio:.2f} Hz')
+# plt.title("PSD Audio + Frecuencia de corte (99%)")
+# plt.xlabel("Frecuencia [Hz]")
+# plt.ylabel("Densidad espectral de potencia")
+# plt.legend()
+# plt.grid(True)
+# plt.show()
