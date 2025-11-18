@@ -17,30 +17,26 @@ alpha_s = 20      # dB
 
 # %% 2) DISEÑO IIR (BUTTER - CHEBY1 - CHEBY2 - CAUER)
 
-mi_sos_butt  = sig.iirdesign(wp, ws, gpass=alpha_p, gstop=alpha_s,
-                             ftype='butter', fs=fs, output='sos')
+mi_sos_butt  = sig.iirdesign(wp, ws, gpass=alpha_p, gstop=alpha_s, ftype='butter', fs=fs, output='sos')
 
-mi_sos_cauer = sig.iirdesign(wp, ws, gpass=alpha_p, gstop=alpha_s,
-                             ftype='ellip', fs=fs, output='sos')
+mi_sos_cauer = sig.iirdesign(wp, ws, gpass=alpha_p, gstop=alpha_s, ftype='ellip', fs=fs, output='sos')
 
-mi_sos_cheb1 = sig.iirdesign(wp, ws, gpass=alpha_p, gstop=alpha_s,
-                             ftype='cheby1', fs=fs, output='sos')
+mi_sos_cheb1 = sig.iirdesign(wp, ws, gpass=alpha_p, gstop=alpha_s, ftype='cheby1', fs=fs, output='sos')
 
-mi_sos_cheb2 = sig.iirdesign(wp, ws, gpass=alpha_p, gstop=alpha_s,
-                             ftype='cheby2', fs=fs, output='sos')
+# mi_sos_cheb2 = sig.iirdesign(wp, ws, gpass=alpha_p, gstop=alpha_s, ftype='cheby2', fs=fs, output='sos')
 
-# Elegimos uno para graficar
+# Elegimos dos para graficar
 mi_sos1 = mi_sos_cauer
 tipo1 = "Cauer"
 
 mi_sos2 = mi_sos_cheb1
 tipo2 = "Cheby 1"
 
-# %% 3) RESPUESTA EN FRECUENCIA (USAR sosfreqz)
-
+# Respuesta en frecuenia (uso sosfreqz)
 w1, h1 = sig.sosfreqz(mi_sos1, worN=2048, fs=fs)
 w2, h2 = sig.sosfreqz(mi_sos2, worN=2048, fs=fs)
 
+# Fase
 fase1 = np.unwrap(np.angle(h1))
 w_rad1 = w1 / (fs/2) * np.pi
 gd1 = -np.diff(fase1) / np.diff(w_rad1)
@@ -49,8 +45,7 @@ fase2 = np.unwrap(np.angle(h2))
 w_rad2 = w2 / (fs/2) * np.pi
 gd2 = -np.diff(fase2) / np.diff(w_rad2)
 
-
-# ----- Gráficos IIR -----
+# %% GRAFICOS 
 # CAUER
 plt.figure(figsize=(12,10))
 
@@ -89,7 +84,7 @@ plt.plot(w2[1:], gd2)
 plt.title(f'IIR {tipo2} - Retardo de Grupo')
 plt.grid()
 
-# %% 4) DISEÑO FIR (FIRWIN2 y FIRLS)
+# %% 2) DISEÑO FIR (FIRWIN2 y FIRLS)
 
 frecuencias = np.array([0, 0.1, 0.8, 35, 35.7, fs/2])
 deseado     = np.array([0, 0, 1, 1, 0, 0])
@@ -104,10 +99,7 @@ numtaps_ls = 2001  # impar
 fir_ls = sig.firls(numtaps_ls, frecuencias, deseado, fs=fs)
 retardo_ls = (numtaps_ls - 1)//2
 
-# -----------------------------
-# RESPUESTA EN FRECUENCIA FIR
-# -----------------------------
-
+# Respuesta en frecuencia
 w_fir, h_fir = sig.freqz(fir_win, worN=2048, fs=fs)
 fase_fir = np.unwrap(np.angle(h_fir))
 gd_fir = -np.diff(fase_fir) / np.diff(w_fir/fs*np.pi)
@@ -116,47 +108,53 @@ w_ls, h_ls = sig.freqz(fir_ls, worN=2048, fs=fs)
 fase_ls = np.unwrap(np.angle(h_ls))
 gd_ls = -np.diff(fase_ls) / np.diff(w_ls/fs*np.pi)
 
-# ----- Gráficos FIR -----
+# %% GRAFICOS 
+# VENTANA RECTANGULAR
 plt.figure(figsize=(12,10))
 
 plt.subplot(3,1,1)
 plt.plot(w_fir, 20*np.log10(abs(h_fir)))
 plot_plantilla('bandpass', wp, alpha_p*2, ws, alpha_s*2, fs)
-plt.title('FIR firwin2 - Magnitud')
+plt.title('FIR ventana rectangular - Magnitud')
+plt.xlim(0, 500)
 plt.grid()
 
 plt.subplot(3,1,2)
 plt.plot(w_fir, fase_fir)
-plt.title('FIR firwin2 - Fase')
+plt.title('FIR ventana rectangular - Fase')
+plt.xlim(0, 500)
 plt.grid()
 
 plt.subplot(3,1,3)
 plt.plot(w_fir[1:], gd_fir)
-plt.title('FIR firwin2 - Retardo de Grupo')
+plt.title('FIR ventana rectangular - Retardo de Grupo')
+plt.xlim(0, 65)
 plt.grid()
 
 
-# FIRLS 
-
+# CUADRADOS MINIMOS (LEAST - SQUARES)
 plt.figure(figsize=(12,10))
 
 plt.subplot(3,1,1)
 plt.plot(w_ls, 20*np.log10(abs(h_ls)))
 plot_plantilla('bandpass', wp, alpha_p*2, ws, alpha_s*2, fs)
-plt.title('FIR firls - Magnitud')
+plt.title('FIR cuadrados minimos - Magnitud')
+plt.xlim(0, 500)
 plt.grid()
 
 plt.subplot(3,1,2)
 plt.plot(w_ls, fase_ls)
-plt.title('FIR firls - Fase')
+plt.title('FIR cuadrados minimos - Fase')
+plt.xlim(0, 500)
 plt.grid()
 
 plt.subplot(3,1,3)
 plt.plot(w_ls[1:], gd_ls)
-plt.title('FIR firls - Retardo de Grupo')
+plt.title('FIR cuadrados minimos - Retardo de Grupo')
+plt.xlim(0, 65)
 plt.grid()
 
-# %% 5) CARGA DEL ECG REAL
+# %% CARGO EL ECG REAL
 
 mat = sio.loadmat('./ecg.mat')
 ecg_raw = mat['ecg_lead'].flatten()
@@ -166,7 +164,7 @@ N = len(ecg_raw)
 ecg_filt_iir = sig.sosfiltfilt(mi_sos_butt, ecg_raw)
 ecg_filt_fir = sig.filtfilt(fir_win, 1, ecg_raw)
 
-# %% 6) GRAFICOS — ZONAS SIN RUIDO
+# %% GRAFICOS — ZONAS SIN RUIDO
 
 regiones_sin_ruido = [
     [4000, 5500],
@@ -185,7 +183,7 @@ for r in regiones_sin_ruido:
     plt.legend()
     plt.grid()
 
-# %% 7) GRAFICOS — ZONAS CON RUIDO
+# %% GRAFICOS — ZONAS CON RUIDO
 
 regiones_ruidosas = [
     (np.array([5, 5.2])*60*fs).astype(int),
@@ -204,5 +202,7 @@ for r in regiones_ruidosas:
     plt.title(f"ECG con ruido ({a} - {b})")
     plt.legend()
     plt.grid()
+    
+    
     
 
