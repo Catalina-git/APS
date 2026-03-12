@@ -1,18 +1,18 @@
-# Primero importo la libreria numpy
+# Primero importo las librerias
 import numpy as np
 import matplotlib.pyplot as plt
 
 # Defino mi funcion
-def mi_funcion_sen(amplitud = 1, offset = 0, frecuencia = 1, fase = 0, N = 1000, frecADC = 1000):
+def mi_funcion_sen(amplitud = 1, offset = 0, frecuencia = 1, fase = 0, N = 1000, fs = 1000):
     """
     - amplitud: es la amplitud maxima. [amplitud] = [V]
     - offset: es mi amplitud media. [offset] = [V]
     - frecuencia: es la frecuencia de la señal. [frecuencia] = [Hz]
     - fase: es la fase inicial. [fase] = [rad]
     - N: es la cantidad de muestras a generar
-    - frecADC: es la frecuencia de muestreo del ADC. [frecADC] = [Hz]
+    - fs: es la frecuencia de muestreo --> cantidad de muestras que se toman cada 1 segundo. [fs] = [Hz]
     """
-    Ts = 1/frecADC # Es el tiempo en el cual se toma cada muestra
+    Ts = 1/fs # Es el tiempo en el cual se toma cada muestra
 
     tt = np.arange(start = 0, stop= N*Ts, step = Ts)
 
@@ -27,10 +27,10 @@ amplitud = 2
 offset = 1
 frecuencia = 5
 fase = np.pi/4
-frecADC = 1000
+fs = 1000
 
 # Llamo a mi funcion
-tt, xx = mi_funcion_sen(amplitud, offset, frecuencia, fase, N, frecADC)
+tt, xx = mi_funcion_sen(amplitud, offset, frecuencia, fase, N, fs)
 
 # Grafico la señal
 plt.title("Señal Senoidal Generada")
@@ -89,8 +89,8 @@ plt.show()
 
 from scipy import signal
 
-def mi_funcion_cuadrada (frecuencia, frecADC, N, offset, fase):
-    Ts = 1/frecADC # Es el tiempo en el cual se toma cada muestra
+def mi_funcion_cuadrada (frecuencia, fs, N, offset, fase):
+    Ts = 1/fs # Es el tiempo en el cual se toma cada muestra
 
     ttc = np.arange(start = 0, stop= N*Ts, step = Ts)
 
@@ -103,10 +103,10 @@ N = 100
 offset = 0
 frecuencia = 4
 fase = 0
-frecADC = 100
+fs = 100
 
 # Llamo a mi funcion
-ttc, xxc = mi_funcion_cuadrada(frecuencia, frecADC, N, offset, fase)
+ttc, xxc = mi_funcion_cuadrada(frecuencia, fs, N, offset, fase)
 
 # Graficamos la señal cuadrada generada
 plt.figure(figsize=(10, 4))
@@ -128,8 +128,8 @@ offset = 0
 frecuencia = 50 # Hz
 fase = 0 # radianes
 tiempo_total = 0.05 # segundos
-frecADC = 5000 # Frecuencia de muestreo (Hz)
-t = np.arange(0, tiempo_total, 1/frecADC)
+fs = 5000 # Frecuencia de muestreo (Hz)
+t = np.arange(0, tiempo_total, 1/fs)
 
 # Definimos el polinomio que describe la frecuencia instantánea
 # En este caso, una aproximación simple con una frecuencia constante
